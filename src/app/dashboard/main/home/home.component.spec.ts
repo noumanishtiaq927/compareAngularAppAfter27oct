@@ -1,4 +1,10 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MaterialModule } from 'src/app/material/material.module';
+import { CardComponent } from '../../reuse/card/card.component';
+import { GraphcardComponent } from '../../reuse/graphcard/graphcard.component';
 
 import { HomeComponent } from './home.component';
 
@@ -8,7 +14,8 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [ HomeComponent ,GraphcardComponent ,CardComponent],
+      imports:[MaterialModule, HttpClientModule, RouterTestingModule, BrowserAnimationsModule]
     })
     .compileComponents();
   });

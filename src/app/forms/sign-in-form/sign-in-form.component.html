@@ -11,21 +11,36 @@
     </mat-card-title>
     <br />
     <mat-card-content>
-      <form ngForm #signin="ngForm" (ngSubmit)="Signin()">
+      <form 
+     
+      (ngSubmit)="Signin()" 
+      [formGroup]="signinForm"
+      
+      >
         <mat-form-field floatLabel="never" appearance="fill">
           <mat-label>email</mat-label>
-          <input matInput required ngModel name="email" />
+          <input 
+          matInput 
+          
+          name="email"
+          formControlName="email"
+          />
         </mat-form-field>
         <mat-form-field floatLabel="never" appearance="fill">
           <mat-label>password</mat-label>
-          <input matInput ngModel name="password" required />
+          <input 
+          matInput
+           
+          name="password" 
+          formControlName="password"
+          />
         </mat-form-field>
         <div class="sign-in-form-buttons">
           <button
             mat-raised-button
             color="primary"
             type="submit"
-            [disabled]="!signin.valid"
+            [disabled]="!signinForm.valid"
           >
             Submit
           </button>

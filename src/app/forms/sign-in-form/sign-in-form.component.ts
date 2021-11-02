@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { NocodeapiCrudService } from 'src/app/dashboard/services/nocodeapi/nocodeapi-crud.service';
 import {MatDialog} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 @Component({
   selector: 'app-sign-in-form',
   templateUrl: './sign-in-form.component.html',
@@ -19,7 +20,8 @@ export class SignInFormComponent implements OnInit {
     public dialog: MatDialog,
     private snackbar: MatSnackBar
   ) {}
-  @ViewChild('signin') formvalue: any;
+  @ViewChild('signin') formvalue:  NgForm | any;
+  signinForm:FormGroup | any;
   signedin:any
   ngOnInit(): void {
     this.signedin = localStorage.getItem('login')
@@ -32,12 +34,16 @@ export class SignInFormComponent implements OnInit {
     else{
       this.nocrudapi.isAuth === false
     }
+    this.signinForm = new FormGroup({
+      'email': new FormControl(null, [Validators.required]),
+      'password': new FormControl(null , [Validators.required])
+    })
   }
   Signin() {
-    console.log(this.formvalue.value.email);
-    console.log(this.formvalue.value.password);
+    console.log(this.signinForm.value.email);
+    console.log(this.signinForm.value.password);
     this.nocrudapi
-      .login(this.formvalue.value.email, this.formvalue.value.password)
+      .login(this.signinForm.value.email, this.signinForm.value.password)
       .subscribe((data) => {
         if (data.message) {
           this.errorlogin = data.message;
@@ -65,6 +71,6 @@ export class SignInFormComponent implements OnInit {
   //  this.dialog.open(DialogElementsExampleDialog);
   }
   resetForm(){
-    this.formvalue.resetForm()
+    this.signinForm.reset()
   }
 }

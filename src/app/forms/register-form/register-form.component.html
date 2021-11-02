@@ -5,7 +5,7 @@
     <mat-card-title class="register-form-card-title">
       Add a New User
     </mat-card-title>
-    <form (ngSubmit)="onSubmit()" ngForm #f="ngForm">
+    <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
       <mat-card-content>
         <div class="container">
         <div class="row">
@@ -16,6 +16,7 @@
                 matInput
                 required
                 [(ngModel)]="dar.firstName"
+                 formControlName="firstName"
                 name="firstName"
               />
             </mat-form-field>
@@ -29,6 +30,7 @@
                 ngModel
                 name="lastName"
                 [(ngModel)]="dar.lastName"
+                 formControlName="lastName"
                 required
               />
             </mat-form-field>
@@ -42,6 +44,7 @@
                 ngModel
                 name="gender"
                 required
+                 formControlName="gender"
                 [(ngModel)]="dar.gender"
               >
                 <mat-option>Select Value from Given</mat-option>
@@ -61,6 +64,7 @@
                 ngModel
                 name="mobile"
                 [(ngModel)]="dar.mobile"
+                 formControlName="mobile"
               />
             </mat-form-field>
           </div>
@@ -74,6 +78,7 @@
                 matInput
                 required
                 ngModel
+                 formControlName="password"
                 name="password"
                 [(ngModel)]="dar.password"
 
@@ -89,6 +94,7 @@
                 required
                 ngModel
                 name="confirmPassword"
+                 formControlName="confirmpassword"
 
 
               />
@@ -103,6 +109,7 @@
                 ngModel
                 name="designation"
                 [(ngModel)]="dar.designation"
+                 formControlName="designation"
                 required
               >
                 <mat-option>Select Value from Given</mat-option>
@@ -121,6 +128,7 @@
                 ngModel
                 name="department"
                 [(ngModel)]="dar.department"
+                 formControlName="department"
                 required
               >
                 <mat-option>Select Value from Given</mat-option>
@@ -140,6 +148,7 @@
                 required
                 ngModel
                 name="email"
+                 formControlName="email"
                 [(ngModel)]="dar.email"
               />
 
@@ -154,6 +163,7 @@
                 [max]="minDate"
                 ngModel
                 name="dateOfJoining"
+                 formControlName="dateOfJoining"
                 [(ngModel)]="dar.dateOfJoining"
                 required
               />
@@ -171,6 +181,7 @@
                 matInput
                 ngModel
                 name="address"
+                 formControlName="address"
                 [(ngModel)]="dar.address"
                 required
               ></textarea>
@@ -181,7 +192,11 @@
           <div class="col">
             <mat-form-field appearance="fill">
               <mat-label>Upload Image</mat-label>
-              <input matInput ngModel name="profilePic" [(ngModel)]="dar.pic" />
+              <input matInput 
+              ngModel 
+              name="profilePic"
+               formControlName="profilePic"
+               [(ngModel)]="dar.pic" />
               <mat-icon
                 matSuffix
 
@@ -201,7 +216,7 @@
           mat-raised-button
           color="primary"
           type="submit"
-          [disabled]="!f.valid"
+          [disabled]="!registerForm.valid"
         >
           Submit
         </button>

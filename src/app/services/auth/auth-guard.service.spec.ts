@@ -1,13 +1,22 @@
+import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NocodeapiCrudService } from 'src/app/dashboard/services/nocodeapi/nocodeapi-crud.service';
+import { MaterialModule } from 'src/app/material/material.module';
 
 import { AuthGuardService } from './auth-guard.service';
 
 describe('AuthGuardService', () => {
   let service: AuthGuardService;
+  let service2: NocodeapiCrudService
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports:[HttpClientModule, RouterTestingModule, BrowserAnimationsModule, MaterialModule]
+    });
     service = TestBed.inject(AuthGuardService);
+    service2 = TestBed.inject(NocodeapiCrudService)
   });
 
   it('should be created', () => {

@@ -12,8 +12,8 @@ export class NocodeapiCrudService {
   isAuth = false;
   id: any;
   error = new Subject<any>();
-  url: string =
-    'https://v1.nocodeapi.com/software_lcs_net/airtable/lHBmyNQqJdcSjqDP?tableName=users';
+  url: string =''
+  //  'https://v1.nocodeapi.com/software_lcs_net/airtable/lHBmyNQqJdcSjqDP?tableName=users';
   //  'https://v1.nocodeapi.com/noumanishtiaq927/airtable/iAdleSYcXFZAUmiB?tableName=users';
   constructor(private http: HttpClient) {}
   getData(): Observable<any> {

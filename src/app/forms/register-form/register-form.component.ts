@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NgForm, NgModel } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, NgModel, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { NocodeapiCrudService } from 'src/app/dashboard/services/nocodeapi/nocodeapi-crud.service';
@@ -40,6 +40,7 @@ export class RegisterFormComponent implements OnInit {
   errorregister: any;
   firstName: any;
   id: any;
+  registerForm: FormGroup | any
   dar: any = {};
   constructor(
     private servicenocode: NocodeapiCrudService,
@@ -59,30 +60,45 @@ export class RegisterFormComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.registerForm = new FormGroup({
+      'firstName' : new FormControl(null, [Validators.required]),
+      'lastName' : new FormControl(null, [Validators.required]),
+      'email' : new FormControl(null, [Validators.required]),
+      'password' : new FormControl(null, [Validators.required]),
+      'confirmpassword' : new FormControl(null, [Validators.required]),
+      'profilePic' : new FormControl(null),
+      'department' : new FormControl(null, [Validators.required]),
+      'designation' : new FormControl(null, [Validators.required]),
+      'gender' : new FormControl(null, [Validators.required]),
+      'mobile' : new FormControl(null, [Validators.required]),
+      'dateOfJoining' : new FormControl(null, [Validators.required]),
+      'address' : new FormControl(null, [Validators.required]),
+    })
+  }
   onSubmit() {
-    console.log(this.formdata.value);
+    console.log(this.registerForm.value);
 
-    this.datapost.firstName = this.formdata.value.firstName
+    this.datapost.firstName = this.registerForm.value.firstName
       .trim()
       .replace(/\s/g, '');
-    this.datapost.lastName = this.formdata.value.lastName
+    this.datapost.lastName = this.registerForm.value.lastName
       .trim()
       .replace(/\s/g, '');
-    this.datapost.email = this.formdata.value.email
+    this.datapost.email = this.registerForm.value.email
       .toLowerCase()
       .trim()
       .replace(/\s/g, '');
-    this.datapost.password = this.formdata.value.password;
-    this.datapost.department = this.formdata.value.department;
-    this.datapost.designation = this.formdata.value.designation;
+    this.datapost.password = this.registerForm.value.password;
+    this.datapost.department = this.registerForm.value.department;
+    this.datapost.designation = this.registerForm.value.designation;
     this.datapost.dateOfJoining;
-    typeof this.formdata.value.dateOfJoining === 'string'
-      ? this.formdata.value.dateOfJoining
-      : this.formdata.value.dateOfJoining.toLocaleDateString();
-    this.datapost.gender = this.formdata.value.gender;
-    this.datapost.mobile = this.formdata.value.mobile;
-    this.datapost.address = this.formdata.value.address;
+    typeof this.registerForm.value.dateOfJoining === 'string'
+      ? this.registerForm.value.dateOfJoining
+      : this.registerForm.value.dateOfJoining.toLocaleDateString();
+    this.datapost.gender = this.registerForm.value.gender;
+    this.datapost.mobile = this.registerForm.value.mobile;
+    this.datapost.address = this.registerForm.value.address;
     // this.datapost.profilePic[0].url = this.formdata.value.profilePic;
 
     console.log(this.datapost);
@@ -167,14 +183,10 @@ export class RegisterFormComponent implements OnInit {
         });
     }
   }
-  fileupload() {
-    const file = this.fileuploadvar?.nativeElement.files[0];
-  }
-  getupload() {
-    let id = document.getElementById('imageupload');
-    id?.click();
-  }
+ 
   resetForm(){
-    this.formdata.resetForm();
+    console.log(this.registerForm.value)
+    this.registerForm.reset();
+    console.log(this.registerForm.value)
   }
 }
