@@ -1,4 +1,3 @@
-import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,7 +12,11 @@ describe('SidenavComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SidenavComponent ],
-      imports:[MaterialModule, HttpClientModule, RouterTestingModule, BrowserAnimationsModule]
+      imports:[
+        MaterialModule,
+        BrowserAnimationsModule,
+        RouterTestingModule
+      ]
     })
     .compileComponents();
   });

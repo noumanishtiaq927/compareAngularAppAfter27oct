@@ -14,8 +14,9 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent ,GraphcardComponent ,CardComponent],
-      imports:[MaterialModule, HttpClientModule, RouterTestingModule, BrowserAnimationsModule]
+      declarations: [ HomeComponent , CardComponent, GraphcardComponent],
+      imports:[MaterialModule , HttpClientModule, RouterTestingModule,BrowserAnimationsModule]
+
     })
     .compileComponents();
   });

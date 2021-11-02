@@ -13,7 +13,12 @@ describe('CardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ CardComponent ],
-      imports:[MaterialModule, BrowserAnimationsModule , HttpClientModule, RouterTestingModule]
+      imports:[
+        MaterialModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        RouterTestingModule.withRoutes([])
+      ]
     })
     .compileComponents();
   });

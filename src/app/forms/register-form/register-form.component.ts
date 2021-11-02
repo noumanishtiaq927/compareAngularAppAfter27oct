@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { NocodeapiCrudService } from 'src/app/dashboard/services/nocodeapi/nocodeapi-crud.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
@@ -39,28 +39,16 @@ export class RegisterFormComponent implements OnInit {
   @ViewChild('fileuploade') fileuploadvar: ElementRef | undefined;
   errorregister: any;
   firstName: any;
-  id: any;
   registerForm: FormGroup | any
+  id: any;
   dar: any = {};
   constructor(
     private servicenocode: NocodeapiCrudService,
     private route: ActivatedRoute,
     private router: Router,
+    private titleService: Title ,
     private snackbar: MatSnackBar
   ) {
-    console.log(typeof this.serverError);
-    console.log(this.route);
-    let id = this.route.snapshot.params.id;
-    this.id = id;
-    console.log(id);
-    if (id) {
-      this.servicenocode.singlegetdata(id).subscribe((data: any) => {
-        this.dar = data;
-      });
-    }
-  }
-
-  ngOnInit(): void {
     this.registerForm = new FormGroup({
       'firstName' : new FormControl(null, [Validators.required]),
       'lastName' : new FormControl(null, [Validators.required]),
@@ -75,10 +63,44 @@ export class RegisterFormComponent implements OnInit {
       'dateOfJoining' : new FormControl(null, [Validators.required]),
       'address' : new FormControl(null, [Validators.required]),
     })
+    console.log(typeof this.serverError);
+    console.log(this.route);
+    let id = this.route.snapshot.params.id;
+    this.id = id;
+    console.log(id);
+    if (id) {
+      this.servicenocode.singlegetdata(id).subscribe((data: any) => {
+        this.registerForm = new FormGroup({
+          'firstName' : new FormControl(data.firstName, [Validators.required]),
+          'lastName' : new FormControl(data.lastName, [Validators.required]),
+          'email' : new FormControl(data.email, [Validators.required]),
+          'password' : new FormControl(data.password, [Validators.required]),
+          'confirmpassword' : new FormControl(data.password, [Validators.required]),
+          'profilePic' : new FormControl(null),
+          'department' : new FormControl(data.department, [Validators.required]),
+          'designation' : new FormControl(data.designation, [Validators.required]),
+          'gender' : new FormControl(data.gender, [Validators.required]),
+          'mobile' : new FormControl(data.mobile, [Validators.required]),
+          'dateOfJoining' : new FormControl(data.dateOfJoining, [Validators.required]),
+          'address' : new FormControl(data.address, [Validators.required]),
+        })
+        console.log(data)
+        console.log(this.registerForm.value)
+
+      });
+    }
+  }
+
+  ngOnInit(): void {
+
+this.titleService.setTitle('Register page');
+
+
+
   }
   onSubmit() {
     console.log(this.registerForm.value);
-
+    console.log(this.registerForm.controls.valid)
     this.datapost.firstName = this.registerForm.value.firstName
       .trim()
       .replace(/\s/g, '');
@@ -132,7 +154,7 @@ export class RegisterFormComponent implements OnInit {
             // snackBarRef.afterDismissed().subscribe(()=>{
             //   console.log(data)
             //   this.router.navigate(['/dashboard'],{state : data });
-            // })
+            // }) //maybe needed .
           });
           let snackBarRef=  this.snackbar.open('Registration Successful', 'Dismiss',{
             horizontalPosition:'center',
@@ -142,7 +164,7 @@ export class RegisterFormComponent implements OnInit {
           })
           snackBarRef.afterDismissed().subscribe(()=>{
             console.log(this.formdata)
-            this.formdata.resetForm();
+            this.registerForm.reset();
 
             // this.router.navigate(['/dashboard'],{state : data });
           })
@@ -166,7 +188,7 @@ export class RegisterFormComponent implements OnInit {
 
           })
           snackBarRef.afterDismissed().subscribe(()=>{
-            this.formdata.resetForm();
+            this.formdata.reset();
             this.router.navigate(['/dashboard','allusers']);
           })
 
@@ -183,10 +205,8 @@ export class RegisterFormComponent implements OnInit {
         });
     }
   }
- 
+
   resetForm(){
-    console.log(this.registerForm.value)
     this.registerForm.reset();
-    console.log(this.registerForm.value)
   }
 }

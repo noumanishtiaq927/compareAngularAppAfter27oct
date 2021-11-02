@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+
 import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
@@ -12,8 +13,8 @@ export class NocodeapiCrudService {
   isAuth = false;
   id: any;
   error = new Subject<any>();
-  url: string =''
-  //  'https://v1.nocodeapi.com/software_lcs_net/airtable/lHBmyNQqJdcSjqDP?tableName=users';
+  url: string ='https://jsonplaceholder.typicode.com/todos/1'
+ //  'https://v1.nocodeapi.com/software_lcs_net/airtable/lHBmyNQqJdcSjqDP?tableName=users'
   //  'https://v1.nocodeapi.com/noumanishtiaq927/airtable/iAdleSYcXFZAUmiB?tableName=users';
   constructor(private http: HttpClient) {}
   getData(): Observable<any> {
@@ -28,10 +29,8 @@ export class NocodeapiCrudService {
         );
         const profilePic = datafields.map((x: any) =>
           x.profilePic
-            ? x.profilePic.map((x: any) =>
-                x.url ? x.url : '../../../../assets/pic.jpg'
-              )
-            : '../../../../assets/pic.jpg'
+            ? x.profilePic.map((x: any) => (x.url ? x.url : "../../../../assets/pic.jpg"))
+            : "../../../../assets/pic.jpg"
         );
         const datageet = datafields.map((x: any, index: any) => ({
           ...x,
@@ -96,9 +95,13 @@ export class NocodeapiCrudService {
     });
   }
   login(email: any, password: any): Observable<any> {
+    console.log('login')
+    console.log(email)
+    console.log(password)
     return this.http.get(this.url).pipe(
       map((data: any) => {
         console.log(data);
+        console.log(this.url)
         const response = data.records.map((x: any) =>
           x.fields ? x.fields : 'null'
         );
@@ -106,13 +109,13 @@ export class NocodeapiCrudService {
         if (responses.length === 0) {
           return new Error('Wrong Credentials');
         } else {
-          console.log(responses);
           const result = responses.map((x: any) =>
-            x.password === password ? { ...x } : new Error('Wrong Credentials')
+            x.password === password
+              ? { ...x, profilePic: x.profilePic[0].url }
+              : new Error('Wrong Credentials')
           );
-
-          console.log(result);
-          return result;
+          console.log(result[0]);
+          return result[0];
         }
       })
     );
@@ -120,19 +123,20 @@ export class NocodeapiCrudService {
 
   isAuthenticated() {
     const promise = new Promise((resolve, reject) => {
-      const item = localStorage.getItem('login');
-      console.log(item);
-      if (item !== null) {
-        console.log(this.isAuth);
-        this.isAuth = true;
+      const item = localStorage.getItem('login')
+      console.log(item)
+      if(item !== null){
+        console.log(this.isAuth)
+        this.isAuth = true
         resolve(this.isAuth);
-      } else {
-        console.log(item);
-        this.isAuth = false;
-        resolve(this.isAuth);
+      }else {
+        console.log(item)
+        this.isAuth = false
+        resolve(this.isAuth)
       }
-    });
-    console.log(promise);
+
+});
+  console.log(promise)
     return promise;
   }
   singlegetdata(id: any): Observable<any> {

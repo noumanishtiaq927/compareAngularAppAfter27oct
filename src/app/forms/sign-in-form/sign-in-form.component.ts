@@ -1,9 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { NocodeapiCrudService } from 'src/app/dashboard/services/nocodeapi/nocodeapi-crud.service';
 import {MatDialog} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-sign-in-form',
   templateUrl: './sign-in-form.component.html',
@@ -13,17 +14,25 @@ export class SignInFormComponent implements OnInit {
   noerror: any;
   errorlogin: any;
   success:any
+  title:any
   constructor(
     private nocrudapi: NocodeapiCrudService,
     private router: Router,
 
+    private titleService: Title ,
+
+
     public dialog: MatDialog,
     private snackbar: MatSnackBar
   ) {}
-  @ViewChild('signin') formvalue:  NgForm | any;
-  signinForm:FormGroup | any;
+  @ViewChild('signin') formvalue: any;
   signedin:any
+  signinForm:FormGroup | any;
   ngOnInit(): void {
+
+this.title = this.titleService.setTitle('SignIn page');
+
+
     this.signedin = localStorage.getItem('login')
     if(this.signedin !== null){
       const datasign = JSON.parse(this.signedin)
@@ -35,13 +44,13 @@ export class SignInFormComponent implements OnInit {
       this.nocrudapi.isAuth === false
     }
     this.signinForm = new FormGroup({
-      'email': new FormControl(null, [Validators.required]),
+      'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null , [Validators.required])
     })
   }
   Signin() {
     console.log(this.signinForm.value.email);
-    console.log(this.signinForm.value.password);
+    console.log('hii',this.signinForm.value.password);
     this.nocrudapi
       .login(this.signinForm.value.email, this.signinForm.value.password)
       .subscribe((data) => {
@@ -63,13 +72,11 @@ export class SignInFormComponent implements OnInit {
         }
       }, (error)=>{
         this.errorlogin = error.statusText
+        console.log(error)
       });
-    // this.nocrudapi.isAuth = true;
-    // this.router.navigate(['/dashboard']);
+
   }
-  openDialog() {
-  //  this.dialog.open(DialogElementsExampleDialog);
-  }
+
   resetForm(){
     this.signinForm.reset()
   }

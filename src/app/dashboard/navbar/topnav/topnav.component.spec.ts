@@ -1,27 +1,28 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from 'src/app/material/material.module';
-import { NocodeapiCrudService } from '../../services/nocodeapi/nocodeapi-crud.service';
 
 import { TopnavComponent } from './topnav.component';
 
 describe('TopnavComponent', () => {
   let component: TopnavComponent;
   let fixture: ComponentFixture<TopnavComponent>;
-  let service: NocodeapiCrudService
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TopnavComponent],
+      declarations: [ TopnavComponent ],
       imports:[
-         BrowserAnimationsModule,BrowserAnimationsModule ,HttpClientModule, RouterTestingModule,
-         MaterialModule
+        HttpClientModule,
+        RouterTestingModule.withRoutes([]),
+        MaterialModule,
+        FormsModule,
+        BrowserAnimationsModule
       ]
     })
     .compileComponents();
-    service = TestBed.inject(NocodeapiCrudService)
   });
 
   beforeEach(() => {
