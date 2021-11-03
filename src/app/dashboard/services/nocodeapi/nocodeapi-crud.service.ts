@@ -13,9 +13,10 @@ export class NocodeapiCrudService {
   isAuth = false;
   id: any;
   error = new Subject<any>();
-  url: string ='https://jsonplaceholder.typicode.com/todos/1'
+  url: string =
+'https://jsonplaceholder.typicode.com/posts'
  //  'https://v1.nocodeapi.com/software_lcs_net/airtable/lHBmyNQqJdcSjqDP?tableName=users'
-  //  'https://v1.nocodeapi.com/noumanishtiaq927/airtable/iAdleSYcXFZAUmiB?tableName=users';
+ // 'https://v1.nocodeapi.com/noumanishtiaq927/airtable/iAdleSYcXFZAUmiB?tableName=users';
   constructor(private http: HttpClient) {}
   getData(): Observable<any> {
     return this.http.get(this.url).pipe(

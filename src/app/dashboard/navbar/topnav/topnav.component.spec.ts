@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from 'src/app/material/material.module';
@@ -33,5 +34,20 @@ describe('TopnavComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should call logout function ', () => {
+    spyOn(component,'logoutuser').and.callThrough()
+    
+    let de = fixture.debugElement.query(By.css('img'))
+  
+    de.triggerEventHandler('click',null)
+    fixture.detectChanges()
+     let dew = fixture.debugElement.query(By.css('.logout'))
+     
+     dew.triggerEventHandler('click',null)
+    
+     expect(component.logoutuser).toHaveBeenCalledTimes(1)
+
+
   });
 });

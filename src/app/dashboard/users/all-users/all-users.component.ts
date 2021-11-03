@@ -105,6 +105,7 @@ export class AllUsersComponent implements OnInit, AfterViewInit {
   }
   ngOnInit(): void {
     this.noCodeApiCrud.getData().subscribe((data: any) => {
+      console.log('hi')
      this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
