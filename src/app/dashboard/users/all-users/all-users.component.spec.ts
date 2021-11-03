@@ -1,7 +1,9 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ElementRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from 'src/app/material/material.module';
 import { NocodeapiCrudService } from '../../services/nocodeapi/nocodeapi-crud.service';
@@ -17,7 +19,7 @@ describe('AllUsersComponent', () => {
       declarations: [ AllUsersComponent ],
       imports:[HttpClientModule, RouterTestingModule.withRoutes([]) , MaterialModule, FormsModule],
 
-      providers:[HttpClient]
+      providers:[]
 
     })
     .compileComponents();
@@ -32,4 +34,5 @@ describe('AllUsersComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

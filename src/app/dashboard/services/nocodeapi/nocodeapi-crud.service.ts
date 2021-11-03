@@ -13,10 +13,10 @@ export class NocodeapiCrudService {
   isAuth = false;
   id: any;
   error = new Subject<any>();
-  url: string =
-'https://jsonplaceholder.typicode.com/posts'
- //  'https://v1.nocodeapi.com/software_lcs_net/airtable/lHBmyNQqJdcSjqDP?tableName=users'
- // 'https://v1.nocodeapi.com/noumanishtiaq927/airtable/iAdleSYcXFZAUmiB?tableName=users';
+  url: string =''
+// 'https://jsonplaceholder.typicode.com/todos/1'
+ // 'https://v1.nocodeapi.com/software_lcs_net/airtable/lHBmyNQqJdcSjqDP?tableName=users'
+  // 'https://v1.nocodeapi.com/noumanishtiaq927/airtable/iAdleSYcXFZAUmiB?tableName=users';
   constructor(private http: HttpClient) {}
   getData(): Observable<any> {
     return this.http.get(this.url).pipe(
@@ -51,6 +51,7 @@ export class NocodeapiCrudService {
   postData(datatopost: any): Observable<any> {
     const datapost = [datatopost];
     console.log(datatopost);
+    console.log('lop')
     console.log(datapost);
     return this.http.post(this.url, datapost);
   }
@@ -62,27 +63,34 @@ export class NocodeapiCrudService {
     return this.http.put(this.url, datapost);
   }
   findData(email: any, datato: any): Observable<any> {
+    console.log(email)
+    console.log(datato)
     return this.http
       .get(this.url, {
         params: new HttpParams().set('fields', 'email'),
       })
       .pipe(
         map((data: any) => {
+          console.log('eloo')
           const response = data.records.map((x: any) =>
             x.fields ? x.fields : 'null'
           );
           const responses = response.filter((x: any) => x.email === email);
+          console.log(responses.length)
           if (responses.length === 0) {
             return this.postData(datato).subscribe(
               (data: any) => {
+                console.log('hi')
                 return data;
               },
               (error) => {
+                console.log('error')
                 console.log(error.error.info);
                 this.error.next(error.error.info);
               }
             );
           } else {
+            console.log('hiemail')
             return new Error('email already exists');
           }
         })
@@ -90,16 +98,19 @@ export class NocodeapiCrudService {
   }
 
   deleteData(id: string): Observable<any> {
+    console.log(id)
     const ide: any = [id];
+    console.log(ide)
     return this.http.delete(this.url, {
       body: ide,
     });
+
   }
   login(email: any, password: any): Observable<any> {
     console.log('login')
     console.log(email)
     console.log(password)
-    return this.http.get(this.url).pipe(
+     return this.http.get(this.url).pipe(
       map((data: any) => {
         console.log(data);
         console.log(this.url)
@@ -119,7 +130,9 @@ export class NocodeapiCrudService {
           return result[0];
         }
       })
+
     );
+
   }
 
   isAuthenticated() {

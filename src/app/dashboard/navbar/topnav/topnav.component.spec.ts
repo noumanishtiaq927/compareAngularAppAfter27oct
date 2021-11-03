@@ -37,15 +37,15 @@ describe('TopnavComponent', () => {
   });
   it('should call logout function ', () => {
     spyOn(component,'logoutuser').and.callThrough()
-    
+
     let de = fixture.debugElement.query(By.css('img'))
-  
+
     de.triggerEventHandler('click',null)
     fixture.detectChanges()
      let dew = fixture.debugElement.query(By.css('.logout'))
-     
+
      dew.triggerEventHandler('click',null)
-    
+
      expect(component.logoutuser).toHaveBeenCalledTimes(1)
 
 

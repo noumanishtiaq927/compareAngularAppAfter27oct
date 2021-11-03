@@ -113,12 +113,13 @@ it('should check Siginin method called login service method  ', ()=>{
   expect(component.Signin).toHaveBeenCalledTimes(1)
   fixture.detectChanges()
   expect(Noservice.login).toHaveBeenCalledTimes(1)
-fixture.detectChanges()
+  fixture.detectChanges()
   expect(component.signinForm.value).toBeDefined()
   fixture.detectChanges()
   expect(component.signinForm.valid).toBeTrue()
   fixture.detectChanges()
 })
+
 it('should check whether the button is disabled when form is invalid',()=>{
   fixture = TestBed.createComponent(SignInFormComponent)
   component = fixture.componentInstance
@@ -138,39 +139,5 @@ it('should check whether the button becomes enabled when form is valid', ()=>{
   let buttonsubmit = fixture.debugElement.query(By.css('button[type=submit]'))
   expect(buttonsubmit.properties.disabled).toBeFalse()
 })
-
-// service checking
-xit('should check Siginin method called  ',fakeAsync(()=>{
-  // spyOn(component , 'Signin').and.callThrough()
-  // spyOn(Noservice , 'login').and.callThrough()
-  // spyOnProperty(component,'errorlogin' ,'get').and.returnValue(v)
-
-  component.signinForm.get('email').setValue('flash@gmail.com')
-  component.signinForm.get('password').setValue('flashisback')
- fixture.detectChanges()
-  let formm = fixture.debugElement.query(By.css('form'))
-  formm.triggerEventHandler('ngSubmit',null)
-  component.Signin()
-  fixture.detectChanges()
-  tick(100000)
-  expect(component.signedin).toBeFalse()
-
-  // fixture.detectChanges()
-  // expect(component.Signin).toHaveBeenCalledTimes(1)
-  // fixture.detectChanges()
-  //expect(Noservice.login).toHaveBeenCalledWith(component.signinForm.get('email').value, component.signinForm.get('password').value)
-
-  // expect(Noservice.login).toHaveBeenCalledTimes(1)
-
-  // expect(component.signinForm.value).toBeTrue()
-
-  // expect(component.signinForm.valid).toBeTrue()
-
-  // let errorlogin = fixture.debugElement.query(By.css('.sign-in-form-error')).nativeElement
-  // expect(errorlogin.innerHTML).toBeTrue()
-  // expect(component.errorlogin).toBeTrue()
-
-}))
-
 });
 

@@ -50,13 +50,15 @@ this.title = this.titleService.setTitle('SignIn page');
   }
   Signin() {
     console.log(this.signinForm.value.email);
-    console.log('hii',this.signinForm.value.password);
+    console.log(this.signinForm.value.password);
     this.nocrudapi
       .login(this.signinForm.value.email, this.signinForm.value.password)
       .subscribe((data) => {
         if (data.message) {
+          console.log({data})
           this.errorlogin = data.message;
         } else {
+          console.log('login success')
           localStorage.setItem('login', JSON.stringify(data))
          let snackBarRef=  this.snackbar.open('Login Success', 'Dismiss',{
             horizontalPosition:'center',
