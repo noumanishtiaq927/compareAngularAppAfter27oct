@@ -112,13 +112,13 @@ fdescribe('NocodeapiCrudService', () => {
       let erroresponse : any
       service.login('flashone@gmail.com', '11111').subscribe(
         (post:any)=>{
-          console.log(post)
-          expect(records.length).toBe(7)
-          expect({records}).toBeDefined()
-          console.log(post)
+          console.log(post.Error)
+          expect(post.length).toBeUndefined()
+          expect(post).toBeFalsy()
+        //  console.log(post)
         },
         (error)=>{
-          console.log(error)
+         console.log(error)
           erroresponse = error.error.type
         }
       )
@@ -127,8 +127,9 @@ fdescribe('NocodeapiCrudService', () => {
        let request = httpMock.expectOne(service.url)
        expect(request.request.method).toBe('GET')
        expect(request.request.responseType).toBe('json')
-      request.error(new ErrorEvent('Wrong Credentials'))
-      expect(erroresponse).toBe('Wrong Credentials')
+       request.flush({records})
+     // request.error(new ErrorEvent('Wrong Credentials'))
+     // expect(erroresponse).toBe('Wrong Credentials')
         const msg: ErrorEvent | any = {
           message : "No Credential Found"
         }
