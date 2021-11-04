@@ -1,15 +1,17 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from 'src/app/material/material.module';
 
 import { NocodeapiCrudService } from './nocodeapi-crud.service';
+import {datarecords , getrecords} from "./service-test-data"
 
-describe('NocodeapiCrudService', () => {
+fdescribe('NocodeapiCrudService', () => {
   let service: NocodeapiCrudService;
-  let httpMock:HttpTestingController
+  let httpMock:HttpTestingController;
+  let http:HttpClient
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -19,100 +21,34 @@ describe('NocodeapiCrudService', () => {
         BrowserAnimationsModule,
 
         HttpClientTestingModule
-      ]
+      ],
+    providers:[HttpClient]
     });
     service = TestBed.inject(NocodeapiCrudService);
     httpMock= TestBed.inject(HttpTestingController)
+    http = TestBed.inject(HttpClient)
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-  it('should test the get data method',()=>{
-    let records = [
-      {
-      createdTime:new Date(),
-      fields:
-      {
-        address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-        email:'flash@gmail.com',firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-        mobile:11111,userId:2,profilePic:[{}]
-      },
-      id:'recIf4DZpxfv7weno'
-    },
-      {
-      createdTime:new Date(),
-      fields:
-      {
-        address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-        email:"husnali1@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-        mobile:11111,userId:2,profilePic:[{}]
-      },
-      id:'recDVl7p3JRH1qGKG'
-    },
-      {
-      createdTime:new Date(),
-      fields:
-      {
-        address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-        email:"hus1010@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-        mobile:11111,userId:2,profilePic:[{}]
-      },
-      id:'recN3aftPPnDctZng'
-    },
-      {
-      createdTime:new Date(),
-      fields:
-      {
-        address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-        email:"ali1010@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-        mobile:11111,userId:2,profilePic:[{}]
-      },
-      id:'recCKoATUopH3Uniq'
-    },
-      {
-      createdTime:new Date(),
-      fields:
-      {
-        address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-        email:"husna0@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-        mobile:11111,userId:2,profilePic:[{}]
-      },
-      id:'rec469TbkTK9efCPv'
-    },
-      {
-      createdTime:new Date(),
-      fields:
-      {
-        address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-        email:"arrow@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'123',
-        mobile:11111,userId:2,profilePic:[{}]
-      },
-      id:'recEPoA2X6PT9ZdRw'
-    },
-      {
-      createdTime:new Date(),
-      fields:
-      {
-        address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-        email:"atom@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'123',
-        mobile:11111,userId:2,profilePic:[{}]
-      },
-      id:'reckMi0cJNj69Z4Ic'
-    },
-
-    ]
-     service.getData().subscribe(posts => {
+  xit('should test the get data method',()=>{
+    let records: any = datarecords
+     service.getData().subscribe(record => {
 
        console.log({records})
-       expect(posts.length).toBe(7)
-       expect({records}).toBeDefined()
+       console.log('test data get')
+       console.log({record})
+       console.log('test data get 2')
+       console.log({getrecords})
+       expect(record.length).toBe(7)
+       expect(getrecords).toEqual(record)
      })
      const request = httpMock.expectOne(service.url)
      expect(request.request.method).toBe('GET')
      request.flush({records})
     })
-  it('should test the post data method',()=>{
+  xit('should test the post data method',()=>{
   let records = [
 
     {
@@ -129,21 +65,16 @@ describe('NocodeapiCrudService', () => {
   ]
   const postdata =
   {
-    firstName:'barry',
-    lastName:'allen',
-    password:'Hello World',
-    address: 'Testing Angular',
-    email:'nmk@gm.com',
-    mobile:1234,
-    designation:'ceo',
-    department:'sales'
+    address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
+    email:"atom@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'123',
+    mobile:11111,userId:2
   }
 
      service.postData(postdata).subscribe(posts => {
-       console.log({records})
-       console.log(posts)
-       expect(posts?.records.length).toBe(1)
-       expect({records}).toEqual(posts)
+          console.log({records})
+          console.log({posts})
+          expect(posts.records.length).toBe(1)
+          expect({records}).toEqual(posts)
      })
      const request = httpMock.expectOne(service.url)
      expect(request.request.method).toBe('POST')
@@ -152,87 +83,18 @@ describe('NocodeapiCrudService', () => {
      request.flush({records})
     })
 
-  it('should check the login method',()=>{
-      let records = [
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:'flash@gmail.com',firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recIf4DZpxfv7weno'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"husnali1@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recDVl7p3JRH1qGKG'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"hus1010@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recN3aftPPnDctZng'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"ali1010@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recCKoATUopH3Uniq'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"husna0@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'rec469TbkTK9efCPv'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"arrow@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'123',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recEPoA2X6PT9ZdRw'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"atom@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'123',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'reckMi0cJNj69Z4Ic'
-      },
-
-      ]
-
-
+  xit('should check the login method',()=>{
+      let records = datarecords
+    let dataget =  {
+        address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
+        email:'flash@gmail.com',firstName:'barry',gender:'male',lastName:'ali',password:'11111',
+        mobile:11111,userId:2,profilePic: '../../../../assets/pic.jpg'
+      }
       service.login('flash@gmail.com', '11111').subscribe(
         (post:any)=>{
 
-          expect(records.length).toBe(7)
-          expect({records}).toBeDefined()
+          expect(Object.keys(post).length).toBe(12)
+          expect(dataget).toEqual(post)
           console.log(post)
         }
       )
@@ -246,84 +108,11 @@ describe('NocodeapiCrudService', () => {
       request.flush({records})
     })
     it('should check the login request with wrong credentials',()=>{
-      let records = [
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:'flash@gmail.com',firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recIf4DZpxfv7weno'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"husnali1@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recDVl7p3JRH1qGKG'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"hus1010@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recN3aftPPnDctZng'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"ali1010@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recCKoATUopH3Uniq'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"husna0@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'rec469TbkTK9efCPv'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"arrow@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'123',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recEPoA2X6PT9ZdRw'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"atom@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'123',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'reckMi0cJNj69Z4Ic'
-      },
-
-      ]
-
+      let records = datarecords
       let erroresponse : any
       service.login('flashone@gmail.com', '11111').subscribe(
         (post:any)=>{
-
+          console.log(post)
           expect(records.length).toBe(7)
           expect({records}).toBeDefined()
           console.log(post)
@@ -346,80 +135,8 @@ describe('NocodeapiCrudService', () => {
 
 
     })
-    it('should check the check find data method and check email aready exists',()=>{
-      let records = [
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:'flash@gmail.com',firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recIf4DZpxfv7weno'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"husnali1@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recDVl7p3JRH1qGKG'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"hus1010@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recN3aftPPnDctZng'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"ali1010@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recCKoATUopH3Uniq'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"husna0@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'rec469TbkTK9efCPv'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"arrow@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'123',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recEPoA2X6PT9ZdRw'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"atom@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'123',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'reckMi0cJNj69Z4Ic'
-      },
-
-      ]
+    xit('should check the check find data method and check email aready exists',()=>{
+      let records = datarecords
       let errresponse:any ='Email Already Exist'
         const postdata =
         {
@@ -459,80 +176,8 @@ expect(errresponse).toBe('Email Already Exist')
 
 
     })
-    it('should check the check find data method',()=>{
-      let records = [
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:'flash@gmail.com',firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recIf4DZpxfv7weno'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"husnali1@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recDVl7p3JRH1qGKG'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"hus1010@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recN3aftPPnDctZng'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"ali1010@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recCKoATUopH3Uniq'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"husna0@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'rec469TbkTK9efCPv'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"arrow@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'123',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recEPoA2X6PT9ZdRw'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"atom@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'123',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'reckMi0cJNj69Z4Ic'
-      },
-
-      ]
+    xit('should check the check find data method',()=>{
+      let records = datarecords
 
         const postdata =
         {
@@ -569,80 +214,8 @@ expect(errresponse).toBe('Email Already Exist')
 
 
     })
-    it('should delete the data',()=>{
-      let records = [
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:'flash@gmail.com',firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recIf4DZpxfv7weno'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"husnali1@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recDVl7p3JRH1qGKG'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"hus1010@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recN3aftPPnDctZng'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"ali1010@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recCKoATUopH3Uniq'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"husna0@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'11111',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'rec469TbkTK9efCPv'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"arrow@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'123',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'recEPoA2X6PT9ZdRw'
-      },
-        {
-        createdTime:new Date(),
-        fields:
-        {
-          address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
-          email:"atom@gmail.com",firstName:'barry',gender:'male',lastName:'ali',password:'123',
-          mobile:11111,userId:2,profilePic:[{}]
-        },
-        id:'reckMi0cJNj69Z4Ic'
-      },
-
-      ]
+    xit('should delete the data',()=>{
+      let records = datarecords
       let errresponse:any ='Email Already Exist'
         const postdata =
         {

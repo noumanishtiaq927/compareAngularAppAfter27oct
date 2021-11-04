@@ -16,7 +16,7 @@ export class NocodeapiCrudService {
   url: string =''
 // 'https://jsonplaceholder.typicode.com/todos/1'
  // 'https://v1.nocodeapi.com/software_lcs_net/airtable/lHBmyNQqJdcSjqDP?tableName=users'
-  // 'https://v1.nocodeapi.com/noumanishtiaq927/airtable/iAdleSYcXFZAUmiB?tableName=users';
+ //  'https://v1.nocodeapi.com/noumanishtiaq927/airtable/iAdleSYcXFZAUmiB?tableName=users';
   constructor(private http: HttpClient) {}
   getData(): Observable<any> {
     return this.http.get(this.url).pipe(
@@ -53,7 +53,11 @@ export class NocodeapiCrudService {
     console.log(datatopost);
     console.log('lop')
     console.log(datapost);
-    return this.http.post(this.url, datapost);
+   return this.http.post(this.url, datapost).pipe(map((data:any)=>{
+     console.log({data})
+        return data;
+    }))
+    
   }
   updateData(datatopost: any, dataid: any): Observable<any> {
     const datapost = [{ id: dataid, fields: datatopost }];
@@ -123,7 +127,7 @@ export class NocodeapiCrudService {
         } else {
           const result = responses.map((x: any) =>
             x.password === password
-              ? { ...x, profilePic: x.profilePic[0].url }
+              ? { ...x, profilePic: x.profilePic ? x.profilePic[0].url : null }
               : new Error('Wrong Credentials')
           );
           console.log(result[0]);
