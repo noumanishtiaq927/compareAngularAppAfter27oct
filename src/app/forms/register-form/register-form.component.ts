@@ -63,11 +63,11 @@ export class RegisterFormComponent implements OnInit {
       'dateOfJoining' : new FormControl(null, [Validators.required]),
       'address' : new FormControl(null, [Validators.required]),
     })
-    console.log(typeof this.serverError);
-    console.log(this.route);
+    // console.log(typeof this.serverError);
+    // console.log(this.route);
     let id = this.route.snapshot.params.id;
     this.id = id;
-    console.log(id);
+    // console.log(id);
     if (id) {
       this.servicenocode.singlegetdata(id).subscribe((data: any) => {
         this.registerForm = new FormGroup({
@@ -84,8 +84,8 @@ export class RegisterFormComponent implements OnInit {
           'dateOfJoining' : new FormControl(data.dateOfJoining, [Validators.required]),
           'address' : new FormControl(data.address, [Validators.required]),
         })
-        console.log(data)
-        console.log(this.registerForm.value)
+        // console.log(data)
+        // console.log(this.registerForm.value)
 
       });
     }
@@ -99,8 +99,8 @@ this.titleService.setTitle('Register page');
 
   }
   onSubmit() {
-    console.log(this.registerForm.value);
-    console.log(this.registerForm.controls.valid)
+    // console.log(this.registerForm.value);
+    // console.log(this.registerForm.controls.valid)
     this.datapost.firstName = this.registerForm.value.firstName
       .trim()
       .replace(/\s/g, '');
@@ -127,9 +127,9 @@ this.titleService.setTitle('Register page');
     if (typeof this.id !== 'string') {
       this.servicenocode.findData(this.datapost.email, this.datapost).subscribe(
         (data) => {
-          console.log(data);
+          // console.log(data);
           if (data.message && data) {
-            console.log('one')
+            // console.log('one')
             this.serverError = data.message;
             let snackBarRef=  this.snackbar.open(this.serverError, 'Dismiss',{
               horizontalPosition:'center',
@@ -138,12 +138,12 @@ this.titleService.setTitle('Register page');
 
             })
           } else {
-            console.log('two')
-            console.log({data})
+            // console.log('two')
+            // console.log({data})
 
             this.servicenocode.error.subscribe((error) => {
               this.serverError = error;
-              console.log({error})
+              // console.log({error})
             // this.servicenocode.isAuth = true;
             let snackBarRef=  this.snackbar.open(this.serverError, 'Dismiss',{
               horizontalPosition:'center',
@@ -163,7 +163,7 @@ this.titleService.setTitle('Register page');
 
           })
           snackBarRef.afterDismissed().subscribe(()=>{
-            console.log(this.formdata)
+            // console.log(this.formdata)
             this.registerForm.reset();
 
             // this.router.navigate(['/dashboard'],{state : data });
@@ -173,7 +173,7 @@ this.titleService.setTitle('Register page');
         },
         (error: any) => {
           this.serverError = 'Hi Error';
-          console.log(error);
+          // console.log(error);
         }
       );
     } else {
@@ -192,16 +192,16 @@ this.titleService.setTitle('Register page');
             this.router.navigate(['/dashboard','allusers']);
           })
 
-          console.log(data);
+          // console.log(data);
         }, (error)=>{
-          console.log('error')
+          // console.log('error')
           let snackBarRef=  this.snackbar.open(error.statusText, 'Dismiss',{
             horizontalPosition:'center',
             verticalPosition:'top',
             direction:'ltr',
 
           })
-          console.log(error)
+          // console.log(error)
         });
     }
   }

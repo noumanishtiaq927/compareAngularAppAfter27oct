@@ -13,3 +13,7 @@ mat-drawer {
 app-dashboard {
   background-color: #e5edf1;
 }
+
+mat-drawer-content{
+  background-color: #f0f3fb;
+}

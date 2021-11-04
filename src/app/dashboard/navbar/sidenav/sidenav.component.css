@@ -3,7 +3,7 @@
   height: 100vh;
 }
 .active {
-  background-color: #0a153527;
+  background-color: #57575727;
   list-style-position: outside;
 
 }
@@ -15,6 +15,10 @@
 .mat-panel-title-sidenav {
   color: rgb(44, 44, 44) !important;
 }
+mat-expansion-panel:hover{
+background-color: aliceblue;
+}
+
 h3 {
   text-align: center;
   margin-left: 10px;
@@ -125,7 +129,7 @@ margin-left: -20px;
   mask-size: cover;
 }
 mat-expansion-panel.mat-expanded  mat-expansion-panel-header{
-  background-color: #0a153527;
+  background-color: #57575727;
 }
 
 

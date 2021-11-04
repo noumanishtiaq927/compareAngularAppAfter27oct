@@ -23,6 +23,6 @@ export class CardComponent implements OnInit, AfterViewInit {
   @Input() color ="bg-success"
   ngOnInit(): void {}
   ngAfterViewInit() {
-    console.log(this.cardelement);
+    // console.log(this.cardelement);
   }
 }

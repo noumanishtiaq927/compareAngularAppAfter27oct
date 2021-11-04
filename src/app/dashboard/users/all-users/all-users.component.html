@@ -13,7 +13,7 @@
   </div>
   <div class="table-container">
     <mat-progress-spinner
-      *ngIf="!dataSource; else elseBlock"
+      *ngIf="dataSource === undefined; else elseBlock"
       class="table-spinner"
       color="accent"
       mode="indeterminate"
@@ -115,8 +115,10 @@
 
 
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">
-            No data matching the filter "{{ input.value }}"
+          <td class="mat-cell"
+          colspan="12"
+          style="margin: auto; text-align: center; font-size: 16px; font-weight: 500; color:crimson">
+                NO DATA TO SHOW
           </td>
         </tr>
       </table>

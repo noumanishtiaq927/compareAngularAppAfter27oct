@@ -8,7 +8,7 @@ import { NocodeapiCrudService } from '../../services/nocodeapi/nocodeapi-crud.se
   styleUrls: ['./topnav.component.css'],
 })
 export class TopnavComponent implements OnInit {
-  leng = '1';
+  leng = '2';
   @Input() valu:any
   @Output() event = new EventEmitter()
   @Input() profilePic:any
@@ -20,9 +20,9 @@ export class TopnavComponent implements OnInit {
   showexpand = true;
   constructor( private nocrudapi: NocodeapiCrudService) {}
 togglesidenav($event:any){
-console.log(this.valu)
+// console.log(this.valu)
 this.event.emit()
-console.log(this.event.emit($event))
+// console.log(this.event.emit($event))
 }
   ngOnInit(): void {}
   logoutuser(){

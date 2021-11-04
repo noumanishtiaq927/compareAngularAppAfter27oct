@@ -20,7 +20,15 @@
   color: grey;
   cursor: pointer;
 }
-
+.submit-button{
+  margin-left:11px ;
+}
+button:disabled{
+  cursor: not-allowed;
+}
+button:hover{
+  background-color: aliceblue;
+}
 /* .register-form-error {
   text-align: center;
   background-color: rgba(220, 20, 60, 0.267);

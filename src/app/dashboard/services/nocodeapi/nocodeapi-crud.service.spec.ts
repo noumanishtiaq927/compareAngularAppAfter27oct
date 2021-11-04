@@ -6,9 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/app/material/material.module';
 
 import { NocodeapiCrudService } from './nocodeapi-crud.service';
-import {datarecords , getrecords} from "./service-test-data"
+import {datarecords , getrecords} from "./noceodeapi-crud.service-test-data"
+import { Observable } from 'rxjs';
 
-fdescribe('NocodeapiCrudService', () => {
+describe('NocodeapiCrudService', () => {
   let service: NocodeapiCrudService;
   let httpMock:HttpTestingController;
   let http:HttpClient
@@ -32,7 +33,7 @@ fdescribe('NocodeapiCrudService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-  xit('should test the get data method',()=>{
+  it('should test the get data method',()=>{
     let records: any = datarecords
      service.getData().subscribe(record => {
 
@@ -48,7 +49,7 @@ fdescribe('NocodeapiCrudService', () => {
      expect(request.request.method).toBe('GET')
      request.flush({records})
     })
-  xit('should test the post data method',()=>{
+  it('should test the post data method',()=>{
   let records = [
 
     {
@@ -83,7 +84,7 @@ fdescribe('NocodeapiCrudService', () => {
      request.flush({records})
     })
 
-  xit('should check the login method',()=>{
+  it('should check the login method',()=>{
       let records = datarecords
     let dataget =  {
         address:'New York', dateOfJoining:"2021-01-19",department:'sales',designation:'ceo',
@@ -107,14 +108,14 @@ fdescribe('NocodeapiCrudService', () => {
 
       request.flush({records})
     })
-    it('should check the login request with wrong credentials',()=>{
+  it('should check the login request with wrong credentials',()=>{
       let records = datarecords
       let erroresponse : any
       service.login('flashone@gmail.com', '11111').subscribe(
         (post:any)=>{
           console.log(post.Error)
           expect(post.length).toBeUndefined()
-          expect(post).toBeFalsy()
+          expect( post ).toEqual(new Error('Wrong Credentials'))
         //  console.log(post)
         },
         (error)=>{
@@ -136,7 +137,7 @@ fdescribe('NocodeapiCrudService', () => {
 
 
     })
-    xit('should check the check find data method and check email aready exists',()=>{
+  it('should check the check find data method and check email aready exists',()=>{
       let records = datarecords
       let errresponse:any ='Email Already Exist'
         const postdata =
@@ -152,14 +153,15 @@ fdescribe('NocodeapiCrudService', () => {
         }
       service.findData('flash@gmail.com', postdata).subscribe(
         (post:any)=>{
-
-          expect(records.length).toBe(7)
-          expect({records}).toBeDefined()
+          console.log(post)
+          console.log({records})
+          expect(post.length).toBeUndefined()
+          expect(post).toEqual(new Error('email already exists'))
 
         }, (error)=> {
           console.log(error)
           expect(errresponse).toBe(error.error.type)
-          // errresponse = error.error.type
+
 
         }
       )
@@ -168,91 +170,8 @@ fdescribe('NocodeapiCrudService', () => {
        let request = httpMock.expectOne(`${service.url}?fields=email`)
        expect(request.request.method).toBe('GET')
        expect(request.request.responseType).toBe('json')
-       expect(request.cancelled).toBeFalsy()
+       request.flush({records})
 
-
-       request.error(new ErrorEvent('Email Already Exist'))
-expect(errresponse).toBe('Email Already Exist')
-
-
-
-    })
-    xit('should check the check find data method',()=>{
-      let records = datarecords
-
-        const postdata =
-        {
-          firstName:'barry',
-          lastName:'allen',
-          password:'Hello World',
-          address: 'Testing Angular',
-          email:'flash@gmail.com',
-          mobile:1234,
-          designation:'ceo',
-          department:'sales'
-        }
-      service.findData('flash1ws@gmail.com', postdata).subscribe(
-        (post:any)=>{
-
-          expect(records.length).toBe(7)
-          expect({records}).toBeDefined()
-
-        },
-
-      )
-
-        expect({records}).toBeTruthy()
-
-       let request = httpMock.expectOne(`${service.url}?fields=email`)
-       expect(request.request.method).toBe('GET')
-       expect(request.request.responseType).toBe('json')
-
-       expect(request.cancelled).toBeFalsy()
-
-
-      request.flush({records},{status:200, statusText:'Success'})
-
-
-
-    })
-    xit('should delete the data',()=>{
-      let records = datarecords
-      let errresponse:any ='Email Already Exist'
-        const postdata =
-        {
-          firstName:'barry',
-          lastName:'allen',
-          password:'Hello World',
-          address: 'Testing Angular',
-          email:'flash@gmail.com',
-          mobile:1234,
-          designation:'ceo',
-          department:'sales'
-        }
-      service.deleteData('reckMi0cJNj69Z4Ic').subscribe(
-        (post:any)=>{
-
-          expect(records.length).toBe(7)
-          expect({records}).toBeDefined()
-
-        }, (error)=> {
-          console.log(error)
-          expect(errresponse).toBe(error.error.type)
-          // errresponse = error.error.type
-
-        }
-      )
-
-        expect({records}).toBeTruthy()
-       let request = httpMock.expectOne(service.url)
-       expect(request.request.method).toBe('DELETE')
-       expect(request.request.responseType).toBe('json')
-       expect(request.request.body).toEqual([ 'reckMi0cJNj69Z4Ic' ])
-       expect(request.cancelled).toBeFalsy()
-
-
-
-   request.flush({records});
 
 
     })

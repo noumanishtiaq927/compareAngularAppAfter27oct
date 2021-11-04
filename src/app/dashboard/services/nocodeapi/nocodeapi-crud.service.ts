@@ -13,15 +13,16 @@ export class NocodeapiCrudService {
   isAuth = false;
   id: any;
   error = new Subject<any>();
-  url: string =''
+  url: string =
+ // ''
 // 'https://jsonplaceholder.typicode.com/todos/1'
- // 'https://v1.nocodeapi.com/software_lcs_net/airtable/lHBmyNQqJdcSjqDP?tableName=users'
- //  'https://v1.nocodeapi.com/noumanishtiaq927/airtable/iAdleSYcXFZAUmiB?tableName=users';
+ 'https://v1.nocodeapi.com/software_lcs_net/airtable/lHBmyNQqJdcSjqDP?tableName=users'
+  // 'https://v1.nocodeapi.com/noumanishtiaq927/airtable/iAdleSYcXFZAUmiB?tableName=users';
   constructor(private http: HttpClient) {}
   getData(): Observable<any> {
     return this.http.get(this.url).pipe(
       map((data: any) => {
-        console.log(data);
+        // console.log(data);
         const datafields = data.records.map((data: any) =>
           data.fields ? data.fields : 'null'
         );
@@ -38,7 +39,7 @@ export class NocodeapiCrudService {
           id: iddata[index],
           pic: profilePic[index],
         }));
-        console.log(datageet);
+        // console.log(datageet);
         this.dataget.next(datageet);
         return datageet;
       }),
@@ -50,32 +51,28 @@ export class NocodeapiCrudService {
 
   postData(datatopost: any): Observable<any> {
     const datapost = [datatopost];
-    console.log(datatopost);
-    console.log('lop')
-    console.log(datapost);
-   return this.http.post(this.url, datapost).pipe(map((data:any)=>{
-     console.log({data})
-        return data;
-    }))
-    
+    // console.log(datatopost);
+    // console.log('lop')
+    // console.log(datapost);
+    return this.http.post(this.url, datapost)
   }
   updateData(datatopost: any, dataid: any): Observable<any> {
     const datapost = [{ id: dataid, fields: datatopost }];
-    console.log(datatopost);
-    console.log(datapost);
-    console.log(dataid);
+    // console.log(datatopost);
+    // console.log(datapost);
+    // console.log(dataid);
     return this.http.put(this.url, datapost);
   }
   findData(email: any, datato: any): Observable<any> {
-    console.log(email)
-    console.log(datato)
+    // console.log(email)
+    // console.log(datato)
     return this.http
       .get(this.url, {
         params: new HttpParams().set('fields', 'email'),
       })
       .pipe(
         map((data: any) => {
-          console.log('eloo')
+          // console.log('eloo')
           const response = data.records.map((x: any) =>
             x.fields ? x.fields : 'null'
           );
@@ -84,17 +81,17 @@ export class NocodeapiCrudService {
           if (responses.length === 0) {
             return this.postData(datato).subscribe(
               (data: any) => {
-                console.log('hi')
+                // console.log('hi'+ data)
                 return data;
               },
               (error) => {
-                console.log('error')
-                console.log(error.error.info);
+                // console.log('error')
+                // console.log(error.error.info);
                 this.error.next(error.error.info);
               }
             );
           } else {
-            console.log('hiemail')
+            // console.log('hiemail')
             return new Error('email already exists');
           }
         })
@@ -102,22 +99,25 @@ export class NocodeapiCrudService {
   }
 
   deleteData(id: string): Observable<any> {
-    console.log(id)
+    // console.log(id)
     const ide: any = [id];
-    console.log(ide)
+    // console.log(ide)
     return this.http.delete(this.url, {
       body: ide,
-    });
+    }).pipe(map((data:any)=>{
+      console.log(data)
+      return data
+    }))
 
   }
   login(email: any, password: any): Observable<any> {
-    console.log('login')
-    console.log(email)
-    console.log(password)
+    // console.log('login')
+    // console.log(email)
+    // console.log(password)
      return this.http.get(this.url).pipe(
       map((data: any) => {
-        console.log(data);
-        console.log(this.url)
+        // console.log(data);
+        // console.log(this.url)
         const response = data.records.map((x: any) =>
           x.fields ? x.fields : 'null'
         );
@@ -127,10 +127,10 @@ export class NocodeapiCrudService {
         } else {
           const result = responses.map((x: any) =>
             x.password === password
-              ? { ...x, profilePic: x.profilePic ? x.profilePic[0].url : null }
+              ?  { ...x, profilePic: x.profilePic ? x.profilePic[0].url : null }
               : new Error('Wrong Credentials')
           );
-          console.log(result[0]);
+          // console.log(result[0]);
           return result[0];
         }
       })
@@ -142,19 +142,19 @@ export class NocodeapiCrudService {
   isAuthenticated() {
     const promise = new Promise((resolve, reject) => {
       const item = localStorage.getItem('login')
-      console.log(item)
+      // console.log(item)
       if(item !== null){
-        console.log(this.isAuth)
+        // console.log(this.isAuth)
         this.isAuth = true
         resolve(this.isAuth);
       }else {
-        console.log(item)
+        // console.log(item)
         this.isAuth = false
         resolve(this.isAuth)
       }
 
 });
-  console.log(promise)
+  // console.log(promise)
     return promise;
   }
   singlegetdata(id: any): Observable<any> {
@@ -164,7 +164,7 @@ export class NocodeapiCrudService {
       })
       .pipe(
         map((data: any) => {
-          console.log(data);
+          // console.log(data);
           const response = data.fields;
 
           return response;

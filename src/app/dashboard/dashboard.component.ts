@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   constructor(private titleService: Title) {}
 
   toggle() {
-    console.log(this.drawer);
+    // console.log(this.drawer);
     this.drawer?.toggle();
   }
   ngOnInit(): void {
@@ -22,11 +22,11 @@ export class DashboardComponent implements OnInit {
 
     const users = localStorage.getItem('login');
     if (users !== null) {
-      console.log(users);
+      // console.log(users);
       this.user = JSON.parse(users);
-      console.log(this.user);
+      // console.log(this.user);
     } else {
-      console.log(history.state);
+      // console.log(history.state);
       this.user = history.state;
     }
   }

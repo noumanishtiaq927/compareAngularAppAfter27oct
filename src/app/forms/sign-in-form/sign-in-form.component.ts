@@ -55,10 +55,10 @@ this.title = this.titleService.setTitle('SignIn page');
       .login(this.signinForm.value.email, this.signinForm.value.password)
       .subscribe((data) => {
         if (data.message) {
-          console.log({data})
+          // console.log({data})
           this.errorlogin = data.message;
         } else {
-          console.log('login success')
+          // console.log('login success')
           localStorage.setItem('login', JSON.stringify(data))
          let snackBarRef=  this.snackbar.open('Login Success', 'Dismiss',{
             horizontalPosition:'center',
@@ -67,14 +67,14 @@ this.title = this.titleService.setTitle('SignIn page');
 
           })
           snackBarRef.afterDismissed().subscribe(()=>{
-            console.log(data)
+            // console.log(data)
             this.router.navigate(['/dashboard'],{state : data });
           })
          // this.router.navigate(['/dashboard'],{state : data });
         }
       }, (error)=>{
         this.errorlogin = error.statusText
-        console.log(error)
+        // console.log(error)
       });
 
   }
