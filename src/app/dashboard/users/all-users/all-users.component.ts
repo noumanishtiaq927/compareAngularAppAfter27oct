@@ -21,7 +21,7 @@ export interface UserData {
 @Component({
   selector: 'app-all-users',
   templateUrl: './all-users.component.html',
-  styleUrls: ['./all-users.component.css'],
+  styleUrls: ['./all-users.component.scss'],
 })
 export class AllUsersComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
@@ -106,13 +106,16 @@ export class AllUsersComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     console.log(this.dataSource)
     this.noCodeApiCrud.getData().subscribe((data: any) => {
+      console.log('from componet')
+      console.log(data)
      this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      console.log('dataSource')
       console.log(this.dataSource);
     });
     // this.noCodeApiCrud.dataget.subscribe((data) => console.log(data));
-     console.log(this.dataSource);
+    //  console.log(this.dataSource);
   }
   deletedata(data: any) {
 
@@ -133,7 +136,7 @@ export class AllUsersComponent implements OnInit, AfterViewInit {
     });
   }
   updateData(data: any) {
-    this.router.navigate(['/dashboard', 'edit', data.id]);
+    this.router.navigate(['/users', 'edit', data.id]);
     // console.log(data);
     this.noCodeApiCrud.dataget.next(data);
   }

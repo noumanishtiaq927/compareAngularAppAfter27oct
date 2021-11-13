@@ -1,0 +1,70 @@
+@import 'mixins';
+@import 'color';
+
+.register-form-title {
+  width: 73vw;
+  margin: 20px auto;
+  color: $title_color;
+}
+
+.register-form-card {
+  width: 75vw;
+  margin: 20px auto;
+  @include borderRadius(10px)
+}
+
+.register-form-buttons {
+  @include flexDisplay();
+
+ h4 {
+  margin: 0 20px;
+  @include fontStyles(14px,500);
+  color: $title_color;
+  cursor: pointer;
+}
+
+.submit-button{
+  margin-left:11px ;
+}
+button {
+  &:disabled {
+  cursor: not-allowed;
+}
+&:hover{
+  background-color: $hover_color;
+}}
+}
+
+.register-form-card {
+  mat-form-field
+  {
+  width:100%;
+  }
+}
+
+.register-form-card-title {
+  margin: 5px 5px 30px 3px;
+  text-align: left;
+  color: $title_color;
+  @include fontStyles(14px,600);
+
+}
+/* .register-form-upload-input {
+  display: none;
+}
+.register-form-upload-input-icon {
+  cursor: pointer;
+} */
+/* .register-form-error {
+  text-align: center;
+  background-color: rgba(220, 20, 60, 0.267);
+  color: crimson;
+  border-radius: 10px;
+  width: fit-content;
+  font-size: 16px;
+  font-weight: 500;
+} */
+
+/* .register-form-card input {
+  width: 100vw;
+} */

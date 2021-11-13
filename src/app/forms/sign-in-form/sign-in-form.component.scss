@@ -1,0 +1,69 @@
+@import 'mixins';
+@import 'color';
+
+.sign-in-form {
+
+  justify-content: center;
+  height: 100vh;
+  @include flexDisplay();
+
+&-card {
+  min-width: 40vw;
+  @include borderRadius(10px)
+}
+mat-form-field {
+  width: 80%;
+  display: block;
+  margin: 0px auto;
+}
+
+&-header {
+  text-align: center;
+  text-decoration: underline;
+  letter-spacing: 1.5px;
+  padding: 3px;
+  @include fontStyles(20px,500);
+
+}
+
+&-buttons {
+
+  justify-content: space-around;
+  width: 70%;
+  margin: 0 auto;
+  @include flexDisplay();
+
+ h4 {
+  margin: 0 20px;
+  color: $title_color;
+  cursor: pointer;
+  @include fontStyles(14px,500);
+
+}}
+&-error {
+  text-align: center;
+  background-color: rgba($error_color,0.3);
+  color: $error_color;
+  width: 80%;
+  margin: 0 auto;
+  @include borderRadius(10px);
+  @include fontStyles(16px,500);
+}
+&-footer {
+
+  text-align: center;
+
+  &-link {
+    text-align: center;
+    background-color:rgba($link_color,0.3);
+    color:$link_color;
+    padding: 2px 8px;
+    @include borderRadius(5px);
+    cursor: pointer;
+  }
+}
+
+button:disabled{
+  cursor: not-allowed;
+}
+}

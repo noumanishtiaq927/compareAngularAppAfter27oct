@@ -1,0 +1,42 @@
+@mixin borderRadius($radius) {
+  border-radius: $radius;
+  -webkit-border-radius: $radius;
+  }
+
+  @mixin fontStyles($size,$weight) {
+    font-size: $size;
+    font-weight: $weight;
+  }
+
+  @mixin flexDisplay(){
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  @mixin iconStyle() {
+    height: auto;
+    width: auto;
+  }
+
+  @mixin avatar($height,$width,$borderRadius,$borderWidth:1px,$cursor:pointer,$padding:2px){
+    height: $height;
+    width: $width;
+    border-radius: $borderRadius;
+    object-fit: cover;
+    border: $borderWidth solid gray;
+    padding: $padding;
+    cursor: $cursor;
+  }
+
+  @mixin hoverEffectIcon(){
+    background-color: aliceblue;
+    border-radius: 50%;
+    transform: scale(1.1);
+    transition: transform 1ms ease-in-out;
+  }
+
+  @mixin graphStyle(){
+    background-color: white;
+    border-radius: 10px;
+  }

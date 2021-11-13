@@ -1,0 +1,9 @@
+@import 'mixins';
+
+.graph1 {
+  @include graphStyle();
+}
+
+.graph2 {
+  @include graphStyle();
+}

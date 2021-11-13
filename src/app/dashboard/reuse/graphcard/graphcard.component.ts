@@ -4,7 +4,7 @@ import { Chart, registerables } from 'chart.js';
 @Component({
   selector: 'app-graphcard',
   templateUrl: './graphcard.component.html',
-  styleUrls: ['./graphcard.component.css'],
+  styleUrls: ['./graphcard.component.scss'],
 })
 export class GraphcardComponent implements OnInit {
   constructor() {}

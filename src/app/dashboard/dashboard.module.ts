@@ -15,15 +15,14 @@ import { HomeComponent } from './main/home/home.component';
 import { GraphcardComponent } from './reuse/graphcard/graphcard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuardService } from '../services/auth/auth-guard.service';
+import { ReuseComponentsModule } from '../reuse-components/reuse-components.module';
 
 
 @NgModule({
   declarations: [
-    DashboardComponent,
-    AllUsersComponent,
 
-    SidenavComponent,
-    TopnavComponent,
+
+
     CardComponent,
     HomeComponent,
     GraphcardComponent,
@@ -31,7 +30,7 @@ import { AuthGuardService } from '../services/auth/auth-guard.service';
   ],
   imports: [
     CommonModule,
-
+    ReuseComponentsModule,
     FormsModule,
     ReactiveFormsModule,
     DashboardRoutingModule,

@@ -8,11 +8,12 @@ import { RegisterFormComponent } from './forms/register-form/register-form.compo
 import { SignInFormComponent } from './forms/sign-in-form/sign-in-form.component';
 import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {  HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 
+
 @NgModule({
-  declarations: [AppComponent, RegisterFormComponent, SignInFormComponent],
+  declarations: [AppComponent, SignInFormComponent,    RegisterFormComponent ,],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -21,6 +22,7 @@ import { AuthGuardService } from './services/auth/auth-guard.service';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
+
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent],

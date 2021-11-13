@@ -16,25 +16,13 @@ const routes: Routes = [
     component: DashboardComponent,
     children: [
       {
-        path: 'allusers',
-        component: AllUsersComponent,
-      },
-      {
         path: '',
         component: HomeComponent,
       },
 
-
-      {
-        path: 'adduser',
-        component: RegisterFormComponent,
-      },
-      {
-        path: 'edit/:id',
-        component: RegisterFormComponent,
-      },
     ],
   },
+
 ];
 
 @NgModule({

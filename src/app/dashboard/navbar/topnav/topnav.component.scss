@@ -1,0 +1,29 @@
+@import 'mixins';
+@import 'color';
+
+.example-spacer {
+  flex: 1;
+}
+mat-toolbar {
+  top: 0;
+  position: sticky;
+  z-index: 100;
+  height: fit-content;
+  padding:10px;
+  background-color:$cards_bg_color;
+
+img {
+  @include avatar(30px,30px,50%);
+
+  margin: auto 4px;
+
+  &:hover{
+    @include  hoverEffectIcon();
+  }
+}
+
+button:hover{
+  @include  hoverEffectIcon();
+
+}
+}

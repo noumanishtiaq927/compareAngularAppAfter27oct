@@ -13,6 +13,8 @@ const routes: Routes = [
   },
   { path: '', component: SignInFormComponent },
   { path: 'register', component: RegisterFormComponent },
+  { path: 'users',canActivate: [AuthGuardService], loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
+
 ];
 
 @NgModule({

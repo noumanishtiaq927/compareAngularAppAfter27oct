@@ -1,0 +1,183 @@
+@import 'mixins';
+@import 'color';
+
+.example-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+mat-expansion-panel{
+  margin:5px 0;
+}
+
+.active {
+
+  background-color: #57575727;
+  list-style-position: outside;
+
+}
+.active1 {
+
+  list-style-position: outside;
+
+}
+.disabled-expansion-panel{
+  color:black
+}
+
+mat-expansion-panel:hover{
+background-color: rgba($hover_color,0.1);
+}
+
+
+
+mat-drawer {
+  width: 18vw;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.firstline {
+  text-align: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  @include fontStyles(larger,600);
+  letter-spacing: 2px;
+  line-height: 3px;
+}
+  .user-avatar-sidenav {
+
+    display: block;
+    margin: auto;
+    @include avatar(50px,50px,10px);
+
+  }
+
+.li-h3 {
+  @include fontStyles(14px,400);
+}
+
+.biodata-sidenav {
+  margin-top: 5px;
+  &-designation {
+    @include fontStyles(small,400);
+    text-align: center;
+    line-height: 1.5px;
+  }
+  &-name {
+    @include fontStyles(medium,500);
+    text-align: center;
+    text-transform: capitalize;
+  }
+}
+
+.users-sidenav-list{
+list-style-type: none;
+list-style-position: outside;
+  margin-left:10px;
+  cursor: pointer;
+  /* padding:10px; */
+
+li{
+
+margin-left: -15px;
+padding:5px 5px 5px 1px;
+text-align: left;
+vertical-align: middle;
+@include flexDisplay();
+
+
+&.active1::before {
+  content: " ";
+  color: transparent;
+  width: 10px;
+  height: 2px;
+  margin-left: -20px;
+  margin-right: 15px;
+  margin-top: -10px;
+  background-color: rgb(0, 0, 0);
+
+}
+}
+}
+
+@media only screen and (min-width: 300px) and (max-width: 768px) {
+
+  .user-avatar-sidenav {
+    @include avatar(40px,40px,5px);
+    padding:2px;
+
+  }
+  .firstline {
+    text-align: center;
+
+    @include fontStyles(10px,400);
+    letter-spacing: 1px;
+    line-height: 3px;
+  }
+  .biodata-sidenav {
+    margin-top: 1.5px;
+  &-designation {
+    @include fontStyles(x-small,500);
+    text-align: center;
+    line-height: 2px;
+  }
+  &-name {
+    @include fontStyles(medium,400);
+    text-align: center;
+    text-transform: capitalize;
+  }}
+  .home-button {
+    width: 90%;
+    text-align: left;
+  }
+  mat-expansion-panel {
+    margin: 0px;
+  }
+  .users-sidenav-list li{
+
+    margin-left: -60px;
+    padding:0px;
+    text-align: left;
+    /* vertical-align: middle; */
+    @include flexDisplay();
+    }
+    ul li.active1::before {
+      content: " ";
+      color: transparent;
+      width: 5px;
+      height: 2px;
+      margin-left: 0px;
+      margin-right: 0px;
+      margin-top:-12px;
+      background-color: rgb(0, 0, 0);
+
+    }
+    .home-button-icon {
+      margin: 0px;
+    }
+    .li-h3 {
+      @include fontStyles(10px,200);
+    }
+
+mat-expansion-panel-header{
+  padding:0;
+}
+mat-expansion-panel{
+  padding: 0;
+  margin: 0;
+}
+mat-panel-title{
+  padding: 0;
+}
+mat-panel-title h3{
+  padding: 0;
+  display: none;
+}
+mat-panel-title mat-icon{
+  padding: 0;
+ margin-left: 15px;
+
+}
+}

@@ -14,15 +14,16 @@ export class NocodeapiCrudService {
   id: any;
   error = new Subject<any>();
   url: string =
- // ''
-// 'https://jsonplaceholder.typicode.com/todos/1'
- 'https://v1.nocodeapi.com/software_lcs_net/airtable/lHBmyNQqJdcSjqDP?tableName=users'
-  // 'https://v1.nocodeapi.com/noumanishtiaq927/airtable/iAdleSYcXFZAUmiB?tableName=users';
+ ''
+
+//'https://v1.nocodeapi.com/software_lcs_net/airtable/lHBmyNQqJdcSjqDP?tableName=users'
+
   constructor(private http: HttpClient) {}
   getData(): Observable<any> {
     return this.http.get(this.url).pipe(
       map((data: any) => {
-        // console.log(data);
+        console.log('service from')
+        console.log(data);
         const datafields = data.records.map((data: any) =>
           data.fields ? data.fields : 'null'
         );
