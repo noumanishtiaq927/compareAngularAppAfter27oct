@@ -10,10 +10,22 @@ import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {  HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './services/auth/auth-guard.service';
+import { ClickdirectiveDirective } from './directives/event-directives/clickdirective.directive';
+import { TypeChangeInputDirective } from './directives/attribute-directive/type-change-input.directive';
+import { MomentDatesPipe } from './pipes/dates/moment-dates.pipe';
+import { MomentTimePipe } from './pipes/times/moment-time.pipe';
+
 
 
 @NgModule({
-  declarations: [AppComponent, SignInFormComponent,    RegisterFormComponent ,],
+  declarations: [
+    AppComponent,
+    SignInFormComponent,    
+    RegisterFormComponent, 
+    ClickdirectiveDirective, 
+    TypeChangeInputDirective,  
+    
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,

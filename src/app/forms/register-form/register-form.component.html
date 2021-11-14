@@ -2,7 +2,7 @@
 <div class="register-form-container">
   <!-- <h3 *ngIf="serverError" class="alert alert-danger">{{ serverError }}</h3> -->
   <mat-card class="register-form-card mat-elevation-z8">
-    <mat-card-title class="register-form-card-title">
+    <mat-card-title class="register-form-card-title" appClickdirective>
       Add a New User
     </mat-card-title>
     <form
@@ -195,7 +195,7 @@
         <div class="row">
           <div class="col">
             <mat-form-field appearance="fill">
-              <mat-label>Upload Image</mat-label>
+              <mat-label>Uppload Image</mat-label>
               <input matInput
 
               name="profilePic"

@@ -26,14 +26,17 @@
           formControlName="email"
           />
         </mat-form-field>
-        <mat-form-field floatLabel="never" appearance="fill">
+        <mat-form-field floatLabel="never" appearance="fill" >
           <mat-label>password</mat-label>
           <input
+          appTypeChangeInput
           matInput
           required
           name="password"
           formControlName="password"
+         type='password'
           />
+        
         </mat-form-field>
         <div class="sign-in-form-buttons">
           <button

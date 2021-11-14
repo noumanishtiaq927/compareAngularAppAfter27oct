@@ -16,16 +16,21 @@ import { GraphcardComponent } from './reuse/graphcard/graphcard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuardService } from '../services/auth/auth-guard.service';
 import { ReuseComponentsModule } from '../reuse-components/reuse-components.module';
+import { ReverseStringPipe } from '../pipes/strings/reverse-string.pipe';
+import { MomentTimePipe } from '../pipes/times/moment-time.pipe';
+import { MomentDatesPipe } from '../pipes/dates/moment-dates.pipe';
 
 
 @NgModule({
   declarations: [
 
 
-
+ReverseStringPipe,
     CardComponent,
     HomeComponent,
     GraphcardComponent,
+    MomentTimePipe,
+    MomentDatesPipe,
 
   ],
   imports: [

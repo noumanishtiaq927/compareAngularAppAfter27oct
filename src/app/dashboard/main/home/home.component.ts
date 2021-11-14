@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
   data = [
     {
       title: 'total users',
-      number: 12390,
+      number: new Date(),
       value: "width: 75%",
       colors: 'purpleCard',
       iconname: 'face',
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     },
     {
       title: 'total rooms',
-      number: 1200,
+      number: 1236874318033,
       value: "width: 55%",
       colors: 'orangeCard',
       iconname: 'hotel',
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     },
     {
       title: 'total departments',
-      number: 120,
+      number: 1636824927373,
       value: "width: 40%",
       colors: 'greenCard',
       iconname: 'home',
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
     },
     {
       title: 'total designation',
-      number: 90,
+      number: 1901111743180,
       value: "width: 80%",
       colors: 'blueCard',
       iconname: 'person',

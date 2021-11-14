@@ -19,8 +19,8 @@
   <div class="row">
     <div *ngFor="let el of data" class="col-md-6 col-lg-4 col-xl-3">
       <app-card
-        [title]="el.title"
-        [number]="el.number"
+        [title]="el.title | reverseString"
+        [number]="el.number | momentTime'"
         [value]="el.value"
         [dynamicName]="el.colors"
         [iconname]="el.iconname"
